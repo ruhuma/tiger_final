@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiger Classification</title>
+</head>
+<body>
+    <h1>Upload an Image to Predict Tiger Class</h1>
+    <form action="/predict" method="POST" enctype="multipart/form-data">
+        <label for="image">Choose an image to upload:</label>
+        <input type="file" name="image" id="image" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Prediction Result:</h2>
+    <div id="result"></div>
+    <h2>Uploaded Image:</h2>
+    <div id="image-display"></div>
+
+    <script>
+        // JavaScript to handle form submission and display prediction result dynamically
+        const form = document.querySelector("form");
+        form.onsubmit = async (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(form);
+
+            const response = await fetch("/predict", {
+                method: "POST",
+                body: formData,
+            });
+
+            const result = await response.json();
+            const resultDiv = document.getElementById("result");
+            const imageDiv = document.getElementById("image-display");
+            
+            if (result.error) {
+                resultDiv.innerHTML = `Error: ${result.error}`;
+            } else {
+                // Display prediction and confidence
+                resultDiv.innerHTML = `Predicted Class: ${result.prediction}`;
+                
+                // Display the image
+                if (result.image_url) {
+                    const image = document.createElement('img');
+                    image.src = result.image_url;  // Use the returned image URL
+                    image.style.maxWidth = '100%';
+                    imageDiv.innerHTML = '';  // Clear previous images
+                    imageDiv.appendChild(image);
+                }
+            }
+        };
+    </script>
+</body>
+</html>
