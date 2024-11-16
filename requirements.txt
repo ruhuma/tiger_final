@@ -4,3 +4,4 @@ numpy==1.26.0  # For numerical operations and image preprocessing
 Pillow==10.0.0  # For image handling
 opencv-python-headless  # OpenCV for image decoding and resizing
 tensorflow  # For model loading and predictions
+gunicorn==20.1.0
