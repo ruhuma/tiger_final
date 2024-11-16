@@ -1,0 +1,6 @@
+Flask==3.0.0  # Ensure Flask is installed
+Werkzeug==3.0.0  # Secure filename functionality
+numpy==1.26.0  # For numerical operations and image preprocessing
+Pillow==10.0.0  # For image handling
+opencv-python-headless==4.10.0  # OpenCV for image decoding and resizing
+tensorflow==2.14.0  # For model loading and predictions
